@@ -1,0 +1,52 @@
+body{
+    margin:0px;
+    font-family:Roboto!important;
+}
+.particleWrapper{
+    background: #000000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    /* z-index: 1; */
+  }
+  .signin-component {
+    /* z-index: 2; */
+    /* background-color: #9b9ea51c; */
+      /* min-height: 100vh; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: calc(10px + 2vmin);
+      color: white;
+      position: absolute;
+      right:40%;
+      top:25%;
+      /* left:0; */
+  }
+
+  /* overWriting reactbootstrap styles */
+.link{
+    text-decoration: none;
+    color:white;
+}
+/* .link:hover{
+    padding-bottom:10px;
+ border-bottom:1px solid;
+display:inline-block;
+} */
+/* overwrite bootdtrap en */
+
+/* third party ocerwriting */
+
+.carousel .slide img{
+  width:35%!important;
+}
+.carousel .slide {
+  background: white!important;
+}
+.carousel .thumbs-wrapper {
+  margin:0px!important;
+}
