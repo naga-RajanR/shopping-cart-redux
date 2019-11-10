@@ -9,8 +9,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { addtoCart, showProducts } from '../actions'
 // import { Checkbox } from '@material-ui/core';
 const ProductsWrapper = styled.div`
-margin:20px;
+// margin:20px;
 padding:20px;
+position:relative;
 display:flex;
 // align-items:center;
 // justify-content:center;
@@ -19,9 +20,12 @@ display:flex;
 const ProductContiner = styled.div`
 display:flex;
 // align-items:center;
-width:70%;
+// width:70%;
 // justify-content:center;
 flex-wrap:wrap;
+@media (max-width: 768px) {
+   width:100%;
+  }
 `
 const CardContainer = styled.div`
 border:1px solid lightgray;
@@ -95,15 +99,37 @@ border: 1px solid transparent;
 box-shadow: 1px 2px 5px 1px #796e6ed1; 
 }
 `
+const FilterWrapper=styled.div`
+width:280px;
+position:absolute;
+top:0px;
+right:0px;
+@media (max-width: 768px) {
+    display:none;
+  }
+`
 const ModalWrapper = styled.div`
-padding:20px;
+// padding:20px;
 display:flex;
+@media (max-width: 768px) {
+    flex-direction:column;
+    width:100%;
+   }
 `
 const GalleryContainer = styled.div`
 width:50%;
 border-right:1px solid black;
+@media (max-width: 768px) {
+    width:100%;
+border-right:0px solid black;
+
+   }
 `
 const DetailsWrapper = styled.div`
+@media (max-width: 768px) {
+width:100%;
+padding:0px 10px;
+}
 padding:0px 20px;
 `
 const Span = styled.span`
@@ -113,7 +139,8 @@ font-weight:lighter;
 export class products extends Component {
     state = {
         open: false,
-        selectedData: null
+        selectedData: null,
+        showFilterOptions:false
     };
     componentDidMount() {
         this.props.showProducts()
@@ -133,14 +160,23 @@ export class products extends Component {
         this.onCloseModal()
         this.props.addtoCart(this.state.selectedData)
     }
+    showFilter=()=>{
+        this.setState({
+        showFilterOptions:true
+    })
+    }
+    closeFilter=()=>{
+        this.setState({
+            showFilterOptions:false
+        })
+    }
     render() {
+        const Width=window.innerWidth
         const { selectedData } = this.state
-        console.log("prop products", this.props)
+        console.log("prop products", this.props,Width)
         return (
             <ProductsWrapper>
-                <div style={{ width: '26%', marginRight: '30px' }}>
-                    <Filter />
-                </div>
+               
                 <ProductContiner>
                     {this.props.filterItems.map((data, index) => {
                         return <CardContainer>
@@ -160,7 +196,10 @@ export class products extends Component {
                             </HoverContent>
                         </CardContainer>
                     })}
-                </ProductContiner>
+                </ProductContiner>    
+                {/* {this.state.showFilterOptions?<FilterWrapper style={{position:this.state.showFilterOptions?'static':'absolute'}} >
+                    <Filter close={this.closeFilter}/>                
+                </FilterWrapper>:<p onClick={this.showFilter} className='filter-btn'>Filter</p>} */}
                 <Modal open={this.state.open} onClose={this.onCloseModal} center>
                     {this.state.selectedData ? <ModalWrapper>
                         <GalleryContainer>
@@ -168,6 +207,7 @@ export class products extends Component {
                                 showStatus={false}
                                 showArrows={false}
                                 showIndicators={false}
+                                showThumbs={Width>375?true:false}
                             >
                                 {selectedData.img.map(data => {
                                     return <div>

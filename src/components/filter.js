@@ -18,6 +18,7 @@ border:1px solid lightgray;
 height:fit-content;
 padding:10px;
 border-radius:10px;
+
 `
 const Title = styled.h2`
 margin:10px 0px;
@@ -64,7 +65,8 @@ margin:10px 0px;
     // console.log("state", this.state.checks,this.props)
     return (
       <FilterContainer>
-        <Title>Filter Options</Title>
+        {/* <Title>Filter Options</Title> */}
+        <p className='filter-btn' onClick={this.props.close} >close x</p>
         <ShareChk>
           <SubHeader>Brands</SubHeader>
           {this.props.checkBox.map((ele, index) => (

@@ -8,7 +8,7 @@ import Modal from 'react-responsive-modal';
 import { removeItem, addQuantity, removeQuantity } from '../actions'
 
 const CartWrapper = styled.div`
-margin:20px;
+// margin:20px;
 padding:20px;
 display:flex;
 flex-direction:column;
@@ -23,12 +23,19 @@ const CartContainer = styled.div`
 display:flex;
 align-items:center;
 justify-content: space-evenly;
-width: 80%;
+width: calc(100% - 200px);
 padding: 10px 20px;
 box-sizing: border-box;
 border: 1px solid lightgrey;
 border-radius: 10px;
 margin: 10px 20px;
+@media (min-width: 769px) and (max-width: 1024px) {
+    width:100%;
+   }
+@media (max-width: 768px) {
+    flex-direction:column;
+    width:100%;
+   }
 `
 const Image = styled.img`
 height: 150px;
@@ -65,14 +72,18 @@ box-shadow: 1px 2px 5px 1px #796e6ed1;
 }
 `
 const PriceWrapper = styled.h3`
-width: 80%;
+width: 100%;
 display: flex;
 margin:10px 0px;
 justify-content: flex-end;
 `
 const RemoveItemWrapper = styled.div`
-width:300px;
+width:280px;
 box-sizing:border-box;
+@media (max-width: 768px) {
+    flex-direction:column;
+    width:240px;
+   }
 `
 // const Button=styled.button``
 export class cart extends Component {
