@@ -1,23 +1,37 @@
 const initialState={
     user:{},
-    isSignedIn:false
+    isSignedIn:false,
+    signInError:null,
+    signOutError:null
 }
 
 const signIn=(state=initialState,action)=>{
    switch(action.type){
-       case "USER_SIGNIN":
-           console.log("firt sign in")
+       case "USER_SIGNIN_SUCCESS":
        return{
            ...state,
-           user:action.payload.userObj,
-           isSignedIn:action.payload.isSignin
+           user:action.payload,
+           isSignedIn:true
        }
-       case "USER_SIGNOUT":
+       case "USER_SIGNIN_ERROR":
+        return{
+            ...state,
+            user:{},
+            isSignedIn:false,
+            signInError:action.payload
+        }
+       case "USER_SIGNOUT_SUCCESS":
        return{
            ...state,
            user:{},
            isSignedIn:false
        }
+       case "USER_SIGNOUT_ERROR":
+        return{
+            ...state,
+            isSignedIn:true,
+            signOutError:action.payload
+        }
        default:
        return state;    
    }   

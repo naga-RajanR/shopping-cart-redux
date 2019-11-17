@@ -5,6 +5,8 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
+    "express": "^4.17.1",
+    "firebase": "^7.4.0",
     "jquery": "^3.4.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
@@ -44,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-snap": "^1.23.0"
   }
 }

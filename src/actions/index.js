@@ -1,19 +1,29 @@
-export const userSignin=(user,isSignin)=>{
+export const userSigninSuccess=(user)=>{
     return {
-        type:"USER_SIGNIN",
-        payload:{
-            userObj:user,
-            isSignin:isSignin
-        }
+        type:"USER_SIGNIN_SUCCESS",
+        payload:user
+    }
+}
+
+export const userSigninError=(error)=>{
+    return {
+        type:"USER_SIGNIN_ERROR",
+        payload:error
     }
 }
 
 export const userSignOut=()=>{
     return{
-        type:"USER_SIGNOUT"
+        type:"USER_SIGNOUT_SUCCESS"
     }
 }
 
+export const userSignOutError=(error)=>{
+    return {
+        type:"USER_SIGNOUT_ERROR",
+        payload:error
+    }
+}
 export const addtoCart=(data)=>{
     return{
         type:"ADD_CART",

@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
-import $ from 'jquery'
-import { userSignOut, userSignin } from '../actions'
+// import { userSignOut, userSignin } from '../actions'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import Button from '@material-ui/core/Button';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
-// import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Person';
 import Avatar from '@material-ui/core/Avatar';
+
+import SocialLogin from './socialLogin'
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -126,6 +125,7 @@ function ButtonAppBar(props) {
               <Label>My Cart {props.cartLength > 0 ? `(${props.cartLength})` : ""}</Label>
             </Link>
           </MenuIems>
+          <SocialLogin/>
         </Toolbar>
       </AppBar>
     </div>
@@ -139,4 +139,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { userSignOut, userSignin })(ButtonAppBar)
+export default connect(mapStateToProps)(ButtonAppBar)

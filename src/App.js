@@ -1,25 +1,40 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux'
 import { BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+import firebase from 'firebase'
 
-
-import {userSignin} from './actions'
+import {userSigninSuccess} from './actions'
 import './globalstyle.css'
 import Navbar from './components/Navbar'
-import SignIn from './components/signIn'
+// import SignIn from './components/signIn'
 import CartItems from './components/cart'
 import Products from './components/products'
+
+firebase.initializeApp({
+  apiKey: "AIzaSyChjnm40LGTSOyKuwGLBNfBYpFTNGJyEzE",
+    authDomain: "shopping-cart-9ead9.firebaseapp.com"
+})
 class App extends Component {
   state={
     showMenu:false
   }
+  uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccess: () => false
+    }
+  }
   componentDidMount() {
-    var userObj = localStorage.getItem('userData');
-    var user = userObj?JSON.parse(userObj):{}
-   var isUser= Object.keys(user).length
-   if(isUser!==0){
-     this.props.userSignin(user,true)
-   }
+    firebase.auth().onAuthStateChanged(user => {
+      if(user!==null){
+        var profileInfo={name:user.displayName,email:user.email,pic:user.photoURL}
+        this.props.userSigninSuccess(profileInfo)
+      }
+    })
   }
   showMenu=()=>{
     this.setState({
@@ -32,13 +47,8 @@ class App extends Component {
        <Navbar showNavbarItems={this.showMenu} show={this.state.showMenu}/>
        <Switch>
           <Route exact path="/" component={Products}/>
-          <Route path="/login" component={SignIn}/>
           <Route path="/carts" component={CartItems}/>
        </Switch>
-      {/* {!this.props.isSigned?<SignIn/>:""
-      }
-      <Navbar/>
-      <Products/> */}
     </div>
     </Router>
   )
@@ -50,4 +60,4 @@ const mapStateToProps=(state)=>{
     isSigned:state.user.isSignedIn 
  }
 }
-export default connect(mapStateToProps,{userSignin})( App);
+export default connect(mapStateToProps,{userSigninSuccess})( App);
