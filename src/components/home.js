@@ -5,7 +5,7 @@ const WaveSection=styled.div`
 width:100%;
 min-height:75vh;
 position:relative;
-background:linear-gradient(180deg,#3f51b5,darkslateblue)
+background:linear-gradient(180deg,#3f51b5,#57babf)
 `
 
 export default class home extends Component {
