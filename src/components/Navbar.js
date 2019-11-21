@@ -76,7 +76,7 @@ cursor:pointer;
 `
 
 function ButtonAppBar(props) {
- 
+  
   const classes = useStyles();
   console.log("navbarProps", props)
   const user = props.isSigned ? props.user : null
@@ -97,6 +97,7 @@ function ButtonAppBar(props) {
     width:100%;
   }
   `
+
   return (
     <div className={classes.root}>
       <AppBar style={{ background: user ? "#3f51b5" : '#3f51b5' }} position="static">
@@ -118,7 +119,7 @@ function ButtonAppBar(props) {
           </Typography>
           </LogoWrapper>
           <MenuIems >
-            <Link className="link" to='/'>
+            <Link className="link" to='/products'>
               <Label>Products</Label>
             </Link>
             <Link className="link" to='/carts'>

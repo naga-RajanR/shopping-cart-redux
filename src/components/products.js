@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import Modal from 'react-responsive-modal';
-import { Carousel } from 'react-responsive-carousel';
-
-import Filter from '../components/filter'
+// import Modal from 'react-responsive-modal';
+// import { Carousel } from 'react-responsive-carousel';
+import Fade from 'react-reveal/Fade';
+// import Filter from '../components/filter'
+import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { addtoCart, showProducts } from '../actions'
 // import { Checkbox } from '@material-ui/core';
@@ -71,10 +72,7 @@ ${CardContainer}:hover & {
     // transform: translateY(0px);
   }
 `
-const Title = styled.h2`
-margin:10px 0px;
-text-transform:uppercase;
-`
+
 const ProductRate = styled.p`
 margin:0px;
 `
@@ -99,42 +97,7 @@ border: 1px solid transparent;
 box-shadow: 1px 2px 5px 1px #796e6ed1; 
 }
 `
-const FilterWrapper=styled.div`
-width:280px;
-position:absolute;
-top:0px;
-right:0px;
-@media (max-width: 768px) {
-    display:none;
-  }
-`
-const ModalWrapper = styled.div`
-// padding:20px;
-display:flex;
-@media (max-width: 768px) {
-    flex-direction:column;
-    width:100%;
-   }
-`
-const GalleryContainer = styled.div`
-width:50%;
-border-right:1px solid black;
-@media (max-width: 768px) {
-    width:100%;
-border-right:0px solid black;
 
-   }
-`
-const DetailsWrapper = styled.div`
-@media (max-width: 768px) {
-width:100%;
-padding:0px 10px;
-}
-padding:0px 20px;
-`
-const Span = styled.span`
-font-weight:lighter;
-`
 
 export class products extends Component {
     state = {
@@ -146,12 +109,7 @@ export class products extends Component {
         this.props.showProducts()
     }
 
-    onOpenModal = (data) => {
-        this.setState({
-            open: true,
-            selectedData: data
-        }, () => { console.log("selectedData", this.state.selectedData) });
-    };
+    
 
     onCloseModal = () => {
         this.setState({ open: false });
@@ -172,9 +130,9 @@ export class products extends Component {
     }
     render() {
         const Width=window.innerWidth
-        const { selectedData } = this.state
+        // const { selectedData } = this.state
         console.log("prop products", this.props,Width)
-        return (
+        return (<Fade>
             <ProductsWrapper>
                
                 <ProductContiner>
@@ -192,7 +150,7 @@ export class products extends Component {
                                <Button>In cart</Button>:
                                <Button onClick={() => { this.props.addtoCart(data) }}>
                                 Add to cart</Button>}
-                                <Button onClick={() => { this.onOpenModal(data) }}>View</Button>
+                               <Link to={`/products/${index}`}> <Button>View</Button></Link>
                             </HoverContent>
                         </CardContainer>
                     })}
@@ -200,45 +158,9 @@ export class products extends Component {
                 {/* {this.state.showFilterOptions?<FilterWrapper style={{position:this.state.showFilterOptions?'static':'absolute'}} >
                     <Filter close={this.closeFilter}/>                
                 </FilterWrapper>:<p onClick={this.showFilter} className='filter-btn'>Filter</p>} */}
-                <Modal open={this.state.open} onClose={this.onCloseModal} center>
-                    {this.state.selectedData ? <ModalWrapper>
-                        <GalleryContainer>
-                            <Carousel
-                                showStatus={false}
-                                showArrows={false}
-                                showIndicators={false}
-                                showThumbs={Width>375?true:false}
-                            >
-                                {selectedData.img.map(data => {
-                                    return <div>
-                                        <img width='100px' alt='product logo' src={data} />
-                                    </div>
-                                })}
-                            </Carousel>
-                        </GalleryContainer>
-                        <DetailsWrapper>
-                            <Title>{selectedData.model}</Title>
-                            <Title style={{ color: '#3f51b5' }}>{selectedData.price} $</Title>
-                            <ProductTitle>Brand: <Span>{selectedData.brand}</Span></ProductTitle>
-                            <ProductTitle>Description: <Span>{selectedData.desc}</Span></ProductTitle>
-                            <ProductTitle>Camera: <Span>{selectedData.specifications.camera}</Span></ProductTitle>
-                            <ProductTitle>Size: <Span>{selectedData.specifications.size}</Span></ProductTitle>
-                            <ProductTitle>CPU: <Span>{selectedData.specifications.cpu}</Span></ProductTitle>
-                            <ProductTitle>Battery: <Span>{selectedData.specifications.battery}</Span></ProductTitle>
-                            <ProductTitle>Memory: <Span>{selectedData.specifications.memory}</Span></ProductTitle>
-                            {this.props.addedItems.findIndex(x => x.id === selectedData.id) !== -1 ?
-                               <Button>In cart</Button>:
-                               <Button onClick={this.modalAddCart}>
-                                Add to cart</Button>}
-                            {/* <Button style={{ margin: '10px 0px' }}
-                                onClick={this.modalAddCart}>
-                                {this.props.addedItems.findIndex(x => x.id === selectedData.id) !== -1 ?
-                                    "In cart" : 'Add to Cart'}
-                            </Button> */}
-                        </DetailsWrapper>
-                    </ModalWrapper> : ""}
-                </Modal>
+                
             </ProductsWrapper>
+            </Fade>
         )
     }
 }
