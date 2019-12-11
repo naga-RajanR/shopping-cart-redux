@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
+import Fade from 'react-reveal/Fade';
 
 import Modal from 'react-responsive-modal';
 // import Checkbox from '../components/checkbox'
@@ -108,7 +109,7 @@ export class cart extends Component {
     }
     render() {
         console.log("cart PRops", this.props.cartItems)
-        return (
+        return (<Fade>
             <CartWrapper>
                 <Title>Cart items</Title>
                 {this.props.cartItems.length > 0 ? <>
@@ -154,11 +155,12 @@ export class cart extends Component {
                 </> :<>
                     <P style={{ margin: '20px 0px' }}>Looks like your cart is empty.. click below to add products</P>
                     {/* <Checkbox/> */}
-                    <Link className="link" to='/'>
+                    <Link className="link" to='/productss'>
                     <Button>Go to shopphig</Button>
                     </Link>
                     </>}
             </CartWrapper>
+            </Fade>
         )
     }
 }

@@ -4,14 +4,14 @@ import styled from 'styled-components'
 // import Modal from 'react-responsive-modal';
 // import { Carousel } from 'react-responsive-carousel';
 import Fade from 'react-reveal/Fade';
-// import Filter from '../components/filter'
+import Filter from '../components/filter'
 import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { addtoCart, showProducts } from '../actions'
 // import { Checkbox } from '@material-ui/core';
 const ProductsWrapper = styled.div`
 // margin:20px;
-padding:20px;
+// padding:20px;
 position:relative;
 display:flex;
 // align-items:center;
@@ -20,6 +20,8 @@ display:flex;
 `
 const ProductContiner = styled.div`
 display:flex;
+transition:all 2s;
+
 // align-items:center;
 // width:70%;
 // justify-content:center;
@@ -97,13 +99,36 @@ border: 1px solid transparent;
 box-shadow: 1px 2px 5px 1px #796e6ed1; 
 }
 `
-
-
+const FilterWrapper=styled.div`
+// border:1px solid black;
+height:75vh;
+`
+const FilterContainer=styled.div`
+width: ${props => props.show ? "200px" : "min-content"};
+visibility:${props => props.show ? "visible" : "hidden"};
+opacity:${props => props.show ? 1 : 0};
+transition:all 2s;
+`
+const FilterButton=styled.button`
+margin: 10px 0px;
+    display: flex;
+    transition:all 2s;
+    width:${props => props.show ? "fill-available" : "90px"};
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    background: #3f51b5;
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+    font-family: cursive;
+    border: 1px solid transparent;
+`
 export class products extends Component {
     state = {
         open: false,
         selectedData: null,
-        showFilterOptions:false
+        showFilterOptions:false,
     };
     componentDidMount() {
         this.props.showProducts()
@@ -120,21 +145,27 @@ export class products extends Component {
     }
     showFilter=()=>{
         this.setState({
-        showFilterOptions:true
+        showFilterOptions:!this.state.showFilterOptions
     })
-    }
-    closeFilter=()=>{
-        this.setState({
-            showFilterOptions:false
-        })
     }
     render() {
         const Width=window.innerWidth
-        // const { selectedData } = this.state
+        const { showFilterOptions } = this.state
         console.log("prop products", this.props,Width)
         return (<Fade>
             <ProductsWrapper>
-               
+                <FilterWrapper>
+                    <FilterButton
+                    show={this.state.showFilterOptions}
+                    style={{margin:'10px 0px'}} 
+                    onClick={this.showFilter}>
+                    Filter <i style={{fontSize:'16px', marginLeft:'15px'}} 
+                    className={showFilterOptions?'fa fa-chevron-left':"fa fa-chevron-right"}>
+                    </i></FilterButton>
+                    <FilterContainer show={this.state.showFilterOptions}>
+                        <Filter/>                       
+                    </FilterContainer>
+                </FilterWrapper>
                 <ProductContiner>
                     {this.props.filterItems.map((data, index) => {
                         return <CardContainer>

@@ -125,11 +125,13 @@ export class productDetails extends Component {
                             "In cart" : 'Add to Cart'}
                     </Button> */}
                    <div style={{display:'flex'}}> 
+                   <div style={{margin:'0px 10px'}}>
                    <FacebookShareButton  
                    quote='Check this product'
                    url={window.location.href}>
                        <FacebookIcon  size={32} round={true}/>
                    </FacebookShareButton>
+                   </div>
                    <WhatsappShareButton  
                    quote='Check this product'
                    url={window.location.href}>

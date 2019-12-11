@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 // import { userSignOut, userSignin } from '../actions'
 import { makeStyles } from '@material-ui/core/styles';
@@ -76,9 +76,16 @@ cursor:pointer;
 `
 
 function ButtonAppBar(props) {
-  
+  const [height, setHeight] = useState(0);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  });
+const  handleScroll = () => {
+  const scrollHeight=window.pageYOffset
+  setHeight(scrollHeight)
+  };
+  console.log('height',height)
   const classes = useStyles();
-  console.log("navbarProps", props)
   const user = props.isSigned ? props.user : null
   const MenuIems = styled.div`
   display:flex;
@@ -110,13 +117,16 @@ function ButtonAppBar(props) {
               <span className="line"></span>
             </div>
           </div>
+         
           <LogoWrapper>
+          <Link className="link" to='/'>
             <Typography variant="h5" className={classes.title}>
               <Avatar alt="shop logo"
                 src="https://www.designfreelogoonline.com/wp-content/uploads/2016/07/000749-online-store-logos-design-free-online-E-commerce-cart-logo-maker-01.png"
                 className={classes.avatar} />
               Shopping
           </Typography>
+          </Link>
           </LogoWrapper>
           <MenuIems >
             <Link className="link" to='/products'>

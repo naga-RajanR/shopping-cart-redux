@@ -66,7 +66,6 @@ margin:10px 0px;
     return (
       <FilterContainer>
         {/* <Title>Filter Options</Title> */}
-        <p className='filter-btn' onClick={this.props.close} >close x</p>
         <ShareChk>
           <SubHeader>Brands</SubHeader>
           {this.props.checkBox.map((ele, index) => (
