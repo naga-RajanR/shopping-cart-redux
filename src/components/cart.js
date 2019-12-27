@@ -155,7 +155,7 @@ export class cart extends Component {
                 </> :<>
                     <P style={{ margin: '20px 0px' }}>Looks like your cart is empty.. click below to add products</P>
                     {/* <Checkbox/> */}
-                    <Link className="link" to='/productss'>
+                    <Link className="link" to='/products'>
                     <Button>Go to shopphig</Button>
                     </Link>
                     </>}
