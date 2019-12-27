@@ -89,6 +89,7 @@ export class productDetails extends Component {
     render() {
         const {selectedData}=this.state
         const Width=window.innerWidth
+        console.log('url',window.location)
         return (<div>
             {this.state.selectedData ? <ModalWrapper>
                 <GalleryContainer>

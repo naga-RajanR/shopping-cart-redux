@@ -104,16 +104,19 @@ const FilterWrapper=styled.div`
 height:75vh;
 `
 const FilterContainer=styled.div`
-width: ${props => props.show ? "200px" : "min-content"};
-visibility:${props => props.show ? "visible" : "hidden"};
-opacity:${props => props.show ? 1 : 0};
-transition:all 2s;
+width:280px;
+position:${props => props.show ? "relative" : "absolute"};
+left:${props => props.show ? "0px" : "-200%"};
+// width: ${props => props.show ? "200px" : "0px"};
+// visibility:${props => props.show ? "visible" : "hidden"};
+// opacity:${props => props.show ? 1 : 0};
+// transition:all 2s;
 `
 const FilterButton=styled.button`
 margin: 10px 0px;
     display: flex;
     transition:all 2s;
-    width:${props => props.show ? "fill-available" : "90px"};
+    // width:${props => props.show ? "fill-available" : "90px"};
     align-items: center;
     justify-content: space-between;
     color: white;
@@ -133,9 +136,6 @@ export class products extends Component {
     componentDidMount() {
         this.props.showProducts()
     }
-
-    
-
     onCloseModal = () => {
         this.setState({ open: false });
     };
